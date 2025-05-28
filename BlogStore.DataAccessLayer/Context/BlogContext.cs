@@ -19,4 +19,4 @@ namespace BlogStore.DataAccessLayer.Context
         public DbSet<Tag>  tags { get; set; }
         public DbSet<Article> articles { get; set; }    
     }
-}
+} 
