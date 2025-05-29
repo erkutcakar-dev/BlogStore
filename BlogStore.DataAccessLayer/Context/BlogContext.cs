@@ -15,8 +15,8 @@ namespace BlogStore.DataAccessLayer.Context
             optionsBuilder.UseSqlServer("Server=;initial catalog =BlogStore;integrated Security=true;trust server certificate=true");
         }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Comment> comments { get; set; }
-        public DbSet<Tag>  tags { get; set; }
-        public DbSet<Article> articles { get; set; }    
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Tag>  Tags { get; set; }
+        public DbSet<Article> Articles { get; set; }    
     }
 } 

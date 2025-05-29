@@ -7,9 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Concrete\" />
-    <Folder Include="EntityFramework\" />
-    <Folder Include="Repositories\" />
     <Folder Include="UnitOfWork\" />
   </ItemGroup>
 
