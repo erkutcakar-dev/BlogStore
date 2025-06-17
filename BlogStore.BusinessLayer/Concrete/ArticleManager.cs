@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BlogStore.BusinessLayer.Abstract;
 using BlogStore.DataAccessLayer.Abstract;
 using BlogStore.EntityLayer.Entities;
@@ -25,21 +22,29 @@ namespace BlogStore.BusinessLayer.Concrete
 
         public List<Article> TGetAll()
         {
-           return _articleDal.GetAll();
+            return _articleDal.GetAll();
         }
 
         public Article TGetById(int id)
         {
-           return _articleDal.GetById(id);
+            return _articleDal.GetById(id);
         }
 
         public void TInsert(Article entity)
         {
-            if (entity.Title.Length>=10 && entity.Title.Length<=100 && entity.Description!=""&& entity.ImageUrl.Contains("a"))
+            if (!string.IsNullOrEmpty(entity.Title) &&
+                entity.Title.Length >= 10 &&
+                entity.Title.Length <= 100 &&
+                !string.IsNullOrEmpty(entity.Description) &&
+                !string.IsNullOrEmpty(entity.ImageUrl) &&
+                entity.ImageUrl.Contains("a"))
             {
-                _articleDal.Insert(entity); 
+                _articleDal.Insert(entity);
             }
-            else { //HataMesajı}
+            else
+            {
+                throw new ArgumentException("Geçersiz veri: Başlık 10-100 karakter aralığında olmalı, açıklama ve görsel URL boş olmamalı, URL 'a' harfi içermeli.");
+            }
         }
 
         public void TUpdate(Article entity)
