@@ -15,7 +15,7 @@ builder.Services.AddScoped<ICommentService, CommentManager>();
 builder.Services.AddScoped<ICommentDal, EfCommentDAL>();
 
 builder.Services.AddScoped<IArticleService, ArticleManager>();
-builder.Services.AddScoped<IArticleDal, EfArticleDAL>();
+builder.Services.AddScoped<IArticleDal, EfArticleDal>();
 
 builder.Services.AddDbContext<BlogContext>();
 

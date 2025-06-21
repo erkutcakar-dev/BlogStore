@@ -1,13 +1,14 @@
-﻿using System;
+﻿using BlogStore.EntityLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BlogStore.EntityLayer.Entities;
 
 namespace BlogStore.DataAccessLayer.Abstract
 {
-    public interface IArticleDal:IGenericDal<Article>
+    public interface IArticleDal : IGenericDal<Article>
     {
+        List<Article> GetArticlesWithCategories();
     }
 }

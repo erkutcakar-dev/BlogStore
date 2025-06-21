@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlogStore.BusinessLayer.Abstract;
 using BlogStore.DataAccessLayer.Abstract;
+using BlogStore.DataAccessLayer.Dtos;
 using BlogStore.EntityLayer.Entities;
 
 namespace BlogStore.BusinessLayer.Concrete
@@ -31,6 +32,11 @@ namespace BlogStore.BusinessLayer.Concrete
         public Category TGetById(int id)
         {
             return _categoryDal.GetById(id);
+        }
+
+        public List<CategoryWithArticleCountDto> TGetCategoriesWithArticlesCount()
+        {
+           return _categoryDal.GetCategoriesWithArticlesCount();
         }
 
         public void TInsert(Category entity)

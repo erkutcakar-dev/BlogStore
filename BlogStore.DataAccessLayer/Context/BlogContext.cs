@@ -18,5 +18,6 @@ namespace BlogStore.DataAccessLayer.Context
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag>  Tags { get; set; }
         public DbSet<Article> Articles { get; set; }    
+
     }
 } 

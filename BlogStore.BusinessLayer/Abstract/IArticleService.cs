@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BlogStore.EntityLayer.Entities;
 
 namespace BlogStore.BusinessLayer.Abstract
 {
-    public interface IArticleService :IGenericService<Article>
+    public interface IArticleService : IGenericService<Article>
     {
+        List<Article> TGetArticlesWithCategories();
     }
 }

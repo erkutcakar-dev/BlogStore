@@ -1,0 +1,21 @@
+﻿using BlogStore.BusinessLayer.Abstract;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BlogStore.PresentationLayer.ViewComponents.ArticleDetailViewComponent
+{
+    public class _ArticleDetailContentComponentPartial :ViewComponent
+      
+    {
+        private readonly IArticleService _articleService;
+
+        public _ArticleDetailContentComponentPartial(IArticleService articleService)
+        {
+            _articleService = articleService;
+        }
+        public IViewComponentResult Invoke()
+        {
+            
+            return View();
+        }
+    }
+}
