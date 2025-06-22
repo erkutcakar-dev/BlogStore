@@ -6,6 +6,8 @@ namespace BlogStore.PresentationLayer.Controllers
     {
         public IActionResult ArticleDetail(int id)
         {
+            
+            ViewBag.i = id;
             return View();
         }
     }

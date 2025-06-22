@@ -13,5 +13,10 @@ namespace BlogStore.EntityLayer.Entities
         public DateTime CommentDate { get; set; }
         public string CommentDetail { get; set; }
         public bool Isvalid { get; set; }
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
+
+        public int ArticleId { get; set; }
+        public Article Article { get; set; }
     }
 }

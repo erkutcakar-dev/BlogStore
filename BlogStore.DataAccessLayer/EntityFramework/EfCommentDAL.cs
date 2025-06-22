@@ -17,5 +17,10 @@ namespace BlogStore.DataAccessLayer.EntityFramework
         {
             _Context = context;
         }
+
+        public List<Comment> GetCommentsByArticle(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
