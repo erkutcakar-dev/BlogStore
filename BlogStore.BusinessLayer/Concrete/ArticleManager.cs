@@ -16,6 +16,8 @@ namespace BlogStore.BusinessLayer.Concrete
         {
             _articleDal = articleDal;
         }
+
+
         public void TDelete(int id)
         {
             _articleDal.Delete(id);
@@ -23,6 +25,11 @@ namespace BlogStore.BusinessLayer.Concrete
         public List<Article> TGetAll()
         {
             return _articleDal.GetAll();
+        }
+
+        public AppUser TGetAppUserByArticleId(int id)
+        {
+            return _articleDal.GetAppUserByArticleId(id);
         }
 
         public List<Article> TGetArticlesWithCategories()
@@ -34,6 +41,12 @@ namespace BlogStore.BusinessLayer.Concrete
         {
             return _articleDal.GetById(id);
         }
+
+        public List<Article> TGetTop3PopulerArticles()
+        {
+            return _articleDal.GetTop3PopulerArticles();
+        }
+
         public void TInsert(Article entity)
         {
             if (entity.Title.Length >= 10 && entity.Title.Length <= 100 && entity.Description != "" && entity.ImageUrl.Contains("a"))

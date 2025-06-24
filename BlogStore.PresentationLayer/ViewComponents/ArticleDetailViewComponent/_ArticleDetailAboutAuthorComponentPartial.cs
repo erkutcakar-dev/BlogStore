@@ -1,13 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlogStore.BusinessLayer.Abstract;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogStore.PresentationLayer.ViewComponents.ArticleDetailViewComponent
 {
     public class _ArticleDetailAboutAuthorComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
-        {
+        private readonly IArticleService _articleService;
 
-            return View();
+        public _ArticleDetailAboutAuthorComponentPartial(IArticleService articleService)
+        {
+            _articleService = articleService;
+        }
+
+        public IViewComponentResult Invoke(int id)
+        {
+            var value = _articleService.TGetAppUserByArticleId(id);
+            return View(value);
         }
     }
 }

@@ -7,6 +7,7 @@ using BlogStore.DataAccessLayer.Abstract;
 using BlogStore.DataAccessLayer.Context;
 using BlogStore.DataAccessLayer.Repositories;
 using BlogStore.EntityLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogStore.DataAccessLayer.EntityFramework
 {
@@ -20,7 +21,9 @@ namespace BlogStore.DataAccessLayer.EntityFramework
 
         public List<Comment> GetCommentsByArticle(int id)
         {
-            throw new NotImplementedException();
+            var values = _Context.Comments.Include( x => x.AppUser).Include(x => x.Article)
+                .Where(x => x.ArticleId == id).ToList();
+            return values;
         }
     }
 }
