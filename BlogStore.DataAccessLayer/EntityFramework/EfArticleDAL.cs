@@ -27,6 +27,11 @@ namespace BlogStore.DataAccessLayer.EntityFramework
 
         }
 
+        public List<Article> GetArticlesByAppUser(string id)
+        {
+            return _context.Articles.Where(x => x.AppUserId ==id).ToList();
+        }
+
         public List<Article> GetArticlesWithCategories()
         {
             return _context.Articles.Include(x => x.Category).ToList();

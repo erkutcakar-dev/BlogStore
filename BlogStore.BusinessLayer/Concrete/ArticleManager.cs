@@ -32,6 +32,11 @@ namespace BlogStore.BusinessLayer.Concrete
             return _articleDal.GetAppUserByArticleId(id);
         }
 
+        public List<Article> TGetArticlesByAppUser(string id)
+        {
+            return _articleDal.GetArticlesByAppUser(id);
+        }
+
         public List<Article> TGetArticlesWithCategories()
         {
             return _articleDal.GetArticlesWithCategories();
