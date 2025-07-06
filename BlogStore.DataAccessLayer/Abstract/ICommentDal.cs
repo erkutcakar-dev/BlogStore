@@ -1,15 +1,17 @@
-﻿using System;
+﻿using BlogStore.EntityLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BlogStore.EntityLayer.Entities;
 
 namespace BlogStore.DataAccessLayer.Abstract
 {
-    public interface ICommentDal:IGenericDal<Comment>
+    public interface ICommentDal : IGenericDal<Comment>
     {
         List<Comment> GetCommentsByArticle(int id);
-   
+        List<Comment> GetLatestComments(int count);
+        List<Comment> GetCommentsWithUser();
+       
     }
 }

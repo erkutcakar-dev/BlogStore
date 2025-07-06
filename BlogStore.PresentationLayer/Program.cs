@@ -1,28 +1,17 @@
 using BlogStore.BusinessLayer.Abstract;
 using BlogStore.BusinessLayer.Concrete;
-using BlogStore.DataAccessLayer.Abstract;
-using BlogStore.DataAccessLayer.Context;
-using BlogStore.DataAccessLayer.EntityFramework;
-using BlogStore.EntityLayer.Entities;
-using Microsoft.AspNetCore.Identity;
+using BlogStore.BusinessLayer.Container;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Blog Store servisleri
+builder.Services.AddBlogStoreServices();
 
-builder.Services.AddScoped<ICategoryService, CategoryManager>();
-builder.Services.AddScoped<ICategoryDal, EfCategoryDAL>();
-
-builder.Services.AddScoped<ICommentService, CommentManager>();
-builder.Services.AddScoped<ICommentDal, EfCommentDAL>();
-
-builder.Services.AddScoped<IArticleService, ArticleManager>();
-builder.Services.AddScoped<IArticleDal, EfArticleDal>();
-
-builder.Services.AddDbContext<BlogContext>();
-builder.Services.AddIdentity<AppUser,IdentityRole >().AddEntityFrameworkStores<BlogContext>();
-    
+// Controllers
 builder.Services.AddControllersWithViews();
+
+// HttpClient for ToxicDetectionService
+builder.Services.AddHttpClient<ToxicDetectionService>();
 
 var app = builder.Build();
 
@@ -30,21 +19,24 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapStaticAssets();
+
+// Routing Configuration
+app.MapControllerRoute(
+    name: "articleDetail",
+    pattern: "Article/ArticleDetail/{slug}",
+    defaults: new { controller = "Article", action = "ArticleDetail" });
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();

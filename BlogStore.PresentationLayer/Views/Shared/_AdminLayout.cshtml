@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="tr">
+@await Component.InvokeAsync("_AdminHeadPartialComponentPartial")
+
+<body>
+    <div class="page-wrapper d-flex" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+
+        <!-- Sol Sidebar -->
+        @await Component.InvokeAsync("_AdminSidebarPartialComponentPartial")
+
+        <!-- Sağ İçerik -->
+        <div class="body-wrapper flex-grow-1">
+            <div class="container-fluid py-4 px-3">
+                @RenderBody()
+            </div>
+
+            @await Component.InvokeAsync("_AdminFooterComponentPartial")
+        </div>
+
+    </div>
+
+    @await Component.InvokeAsync("_AdminScriptsPartialComponentPartial")
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

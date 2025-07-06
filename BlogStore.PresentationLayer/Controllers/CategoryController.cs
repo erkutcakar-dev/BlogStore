@@ -1,16 +1,22 @@
 ﻿using BlogStore.BusinessLayer.Abstract;
 using BlogStore.EntityLayer.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace BlogStore.PresentationLayer.Controllers
 {
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
-        public CategoryController(ICategoryService categoryService)
+        private readonly IArticleService _articleService;
+
+        // IArticleService eklendi blogları çekebilmek için
+        public CategoryController(ICategoryService categoryService, IArticleService articleService)
         {
             _categoryService = categoryService;
+            _articleService = articleService;
         }
+
         public IActionResult CategoryList()
         {
             var values = _categoryService.TGetAll();
@@ -29,11 +35,13 @@ namespace BlogStore.PresentationLayer.Controllers
             _categoryService.TInsert(category);
             return RedirectToAction("CategoryList");
         }
+
         public IActionResult DeleteCategory(int id)
         {
             _categoryService.TDelete(id);
             return RedirectToAction("CategoryList");
         }
+
         [HttpGet]
         public IActionResult UpdateCategory(int id)
         {
@@ -46,6 +54,28 @@ namespace BlogStore.PresentationLayer.Controllers
         {
             _categoryService.TUpdate(category);
             return RedirectToAction("CategoryList");
+        }
+
+        // --------- Yeni eklenen methodlar ---------
+
+        // Kategorileri 3’lü grid olarak listeleyen action
+        public IActionResult CategoryGridList()
+        {
+            var categories = _categoryService.TGetAll().ToList();
+            return View(categories);
+        }
+
+        // Kategoriye ait blogları listeleyen action
+        public IActionResult BlogListByCategory(int categoryId)
+        {
+            var blogs = _articleService.TGetAll()
+                .Where(a => a.CategoryId == categoryId)
+                .ToList();
+
+            var category = _categoryService.TGetById(categoryId);
+            ViewBag.CategoryName = category?.CategoryName ?? "Kategori bulunamadı";
+
+            return View(blogs);
         }
     }
 }

@@ -11,10 +11,13 @@ namespace BlogStore.DataAccessLayer.Abstract
     {
         List<Article> GetArticlesWithCategories();
         public AppUser GetAppUserByArticleId(int id);
-
-        List<Article> GetTop3PopulerArticles();
+        List<Article> GetTop3PopularArticles();
         List<Article> GetArticlesByAppUser(string id);
+        public Article GetArticleWithUser(int id);
+        public Article GetArticleBySlug(string slug);
+        public List<AppUser> GetAllAuthorsWithArticles();
+        public List<Article> GetArticlesByCategory(int categoryId);
 
-     }
 
+    }
 }

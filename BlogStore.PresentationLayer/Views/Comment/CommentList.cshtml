@@ -1,6 +1,7 @@
 ﻿@model List<BlogStore.EntityLayer.Entities.Comment>
 @{
-    Layout = null;
+    ViewData["Title"] = "CreateArticle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -10,18 +11,20 @@
     <table class="table table-bordered">
         <tr>
             <th>#</th>
-            <th>Yorum Id</th>
-            <th>Yorum Yapan Kullanıcı</th>
+            <th>Yorum Yapan</th>
             <th>İçerik</th>
+            <th>Tarih</th>
             <th>Sil</th>
             <th>Güncelle</th>
         </tr>
         @foreach (var item in Model)
         {
             <tr>
+				
                 <td>@item.CommentId</td>
 				<td>@item.UserNameSurname</td>
                 <td>@item.CommentDetail</td>
+				<td>@item.CommentDate.ToString("dd/MM/yyyy")</td>
                 <td><a href="/Comment/DeleteComment/@item.CommentId" class="btn btn-danger">Sil</a></td>
                 <td><a href="/Comment/UpdateComment/@item.CommentId" class="btn btn-success">Güncelle</a></td>
             </tr>

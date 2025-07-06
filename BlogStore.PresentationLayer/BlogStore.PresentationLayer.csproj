@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\flexy-bootstrap-lite-1.0.0\.vscode\settings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlogStore.BusinessLayer\BlogStore.BusinessLayer.csproj" />
+    <ProjectReference Include="..\BlogStore.EntityLayer\BlogStore.EntityLayer.csproj" />
   </ItemGroup>
 
 </Project>

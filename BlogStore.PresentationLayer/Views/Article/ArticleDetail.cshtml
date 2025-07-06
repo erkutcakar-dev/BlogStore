@@ -11,7 +11,7 @@
 
     @await Component.InvokeAsync("_NavBarLayoutComponentPartial")
 
-    @await Component.InvokeAsync("_ArticleDetailMainCoverImageComponentPartial")
+    @await Component.InvokeAsync("_ArticleDetailMainCoverImageComponentPartial", new { id = ViewBag.i })
 
     <section class="section">
         <div class="container">
@@ -26,12 +26,23 @@
                         <p>Categories:  <a href="#">Food</a>, <a href="#">Travel</a>  Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
                     </div>
 
-
                     @await Component.InvokeAsync("_ArticleDetailCommentListComponentPartial", new { id = ViewBag.i })
+
+                   
+                    <div class="comment-form mt-5">
+                        
+                        <input type="hidden" id="articleId" value="@ViewBag.i" />
+
+                        <form id="commentForm">
+                            <textarea id="commentText" rows="4" class="form-control" placeholder="Yorumunuzu yazın..."></textarea>
+                            <button type="submit" class="btn btn-primary mt-2">Gönder</button>
+                        </form>
+                    </div>
+                    
 
                 </div>
 
-                <!-- END main-content -->
+              
 
                 <div class="col-md-12 col-lg-4 sidebar">
                     <div class="sidebar-box search-form-wrap">
@@ -40,16 +51,16 @@
                             <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
                         </form>
                     </div>
-                    <!-- END sidebar-box -->
-                    @await Component.InvokeAsync("_ArticleDetailAboutAuthorComponentPartial",new { id = ViewBag.i })
+              
+                    @await Component.InvokeAsync("_ArticleDetailAboutAuthorComponentPartial", new { id = ViewBag.i })
 
-                    <!-- END sidebar-box -->
+                  
                     @await Component.InvokeAsync("_ArticleDetailPopulerPostComponentPartial")
-                    <!-- END sidebar-box -->
+                
                     @await Component.InvokeAsync("_ArticleDetailCategoryListComponentPartial")
 
 
-                    <!-- END sidebar-box -->
+                
 
                     <div class="sidebar-box">
                         <h3 class="heading">Tags</h3>
@@ -69,18 +80,53 @@
                         </ul>
                     </div>
                 </div>
-                <!-- END sidebar -->
+            
 
             </div>
         </div>
     </section>
 
-
-    <!-- Start posts-entry -->
-    <!-- End posts-entry -->
     @await Component.InvokeAsync("_ArticleDetailFooterComponentPartial")
-    <!-- /.site-footer -->
-    <!-- Preloader -->
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $('#commentForm').submit(function (e) {
+            e.preventDefault();
+
+            var articleId = $('#articleId').val();
+            var commentDetail = $('#commentText').val();
+
+            if (!commentDetail || commentDetail.length < 3) {
+                alert("Yorum en az 3 karakter olmalıdır.");
+                return;
+            }
+
+            $.ajax({
+                url: '/Comment/AddCommentAjax',
+                type: 'POST',
+                data: {
+                    articleId: articleId,
+                    commentDetail: commentDetail
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        $('#commentText').val('');
+                        $('#commentsList').append(
+                            '<div class="comment-item"><strong>' + response.userName + '</strong> <small>(' + response.date + ')</small><p>' + response.comment + '</p></div>'
+                        );
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("Sunucu hatası oluştu.");
+                }
+            });
+        });
+    </script>
+
     @await Component.InvokeAsync("_ScriptLayoutComponentPartial")
 
 </body>

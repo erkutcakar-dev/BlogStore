@@ -1,0 +1,217 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-warning">
+        <i class="ti ti-alert-triangle me-2"></i>@ViewBag.Error
+    </div>
+}
+
+<!--  Row 1 -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card w-100">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title">Kategori Makalelerine Genel Bakış</h4>
+                        <p class="card-subtitle">Kategorilere göre makaleler</p>
+                    </div>
+                </div>
+                <div id="category-chart" class="mt-4 mx-n6" style="min-height: 275px;">
+                    @if (ViewBag.CategoryChartData?.Count == 0)
+                    {
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <p class="text-muted">unknown</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div class="d-flex align-items-start">
+                    <div>
+                        <h4 class="card-title">En iyi yorumlar</h4>
+                        <p class="card-subtitle">En Aktif Kullanıcılar</p>
+                    </div>
+                </div>
+
+                @if (ViewBag.TopCommenters?.Count > 0)
+                {
+                    @foreach (var commenter in ViewBag.TopCommenters)
+                    {
+                        <div class="mt-4 pb-3 d-flex align-items-center">
+                            <span class="btn btn-primary rounded-circle" style="width: 48px; height: 48px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                                <img src="@(commenter.User.ImageUrl ?? "/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg")"
+                                     class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;"
+                                     onerror="this.src='/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg';">
+                            </span>
+                            <div class="ms-3">
+                                <h5 class="mb-0 fw-bolder fs-4">@commenter.User.Name @commenter.User.Surname</h5>
+                                <span class="text-muted fs-3">Yazar içerikleri</span>
+                            </div>
+                            <div class="ms-auto">
+                                <span class="badge bg-secondary-subtle text-muted">@commenter.CommentCount comments</span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="mt-4 pb-3 text-center">
+                        <p class="text-muted">unknown</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title">Yazar performansı</h4>
+                        <p class="card-subtitle" >En iyi yazarlar ve makaleleri</p>
+                    </div>
+                </div>
+                <div class="table-responsive mt-4">
+                    <table class="table mb-0 text-nowrap varient-table align-middle fs-3">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="px-0 text-muted">Yazarlar</th>
+                                <th scope="col" class="px-0 text-muted text-end">Makaleler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.TopAuthors?.Count > 0)
+                            {
+                                @foreach (var author in ViewBag.TopAuthors)
+                                {
+                                    <tr>
+                                        <td class="px-0">
+                                            <div class="d-flex align-items-center">
+                                                <img src="@(author.User.ImageUrl ?? "/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg")"
+                                                     class="rounded-circle" width="40" alt="author"
+                                                     onerror="this.src='/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg';" />
+                                                <div class="ms-3">
+                                                    <h6 class="mb-0 fw-bolder">@author.User.Name @author.User.Surname</h6>
+                                                    <span class="text-muted">@(author.User.Email)</span>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-0 text-dark fw-medium text-end">@author.ArticleCount</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">Henüz yazar verisi bulunmuyor</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <!-- Card -->
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0">Son yorumlar</h4>
+            </div>
+            <div class="comment-widgets scrollable mb-2 common-widget" style="height: 465px" data-simplebar="">
+                @if (ViewBag.LatestComments?.Count > 0)
+                {
+                    @foreach (var comment in ViewBag.LatestComments)
+                    {
+                        <!-- Comment Row -->
+                        <div class="d-flex flex-row comment-row border-bottom p-3 gap-3">
+                            <div>
+                                <span>
+                                    <img src="@(comment.AppUser?.ImageUrl ?? "/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg")"
+                                         class="rounded-circle" alt="user" width="50"
+                                         onerror="this.src='/flexy-bootstrap-lite-1.0.0/assets/images/profile/user-1.jpg';" />
+                                </span>
+                            </div>
+                            <div class="comment-text w-100">
+                                <h6 class="fw-medium">@(comment.AppUser?.Name ?? "anonymous") @(comment.AppUser?.Surname ?? "")</h6>
+                                <p class="mb-1 fs-2 text-muted">@comment.CommentDetail</p>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="p-3 text-center">
+                        <p class="text-muted">unknown</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/flexy-bootstrap-lite-1.0.0/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script>
+        
+        var categoryData = @Html.Raw(Json.Serialize(ViewBag.CategoryChartData ?? new List<object>()));
+
+        if (categoryData && categoryData.length > 0) {
+            var options = {
+                series: categoryData.map(x => x.value),
+                chart: {
+                    type: 'pie',
+                    height: 275,
+                    toolbar: {
+                        show: false,
+                    },
+                    foreColor: "#adb0bb",
+                    fontFamily: "inherit",
+                },
+                labels: categoryData.map(x => x.name),
+                colors: ['var(--bs-primary)', 'var(--bs-secondary)', 'var(--bs-success)', 'var(--bs-warning)', 'var(--bs-info)', 'var(--bs-danger)'],
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val) {
+                        return Math.round(val) + "%"
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '70%'
+                        }
+                    }
+                },
+                legend: {
+                    show: true,
+                    position: 'bottom'
+                },
+                tooltip: {
+                    theme: "dark",
+                    y: {
+                        formatter: function (val) {
+                            return val + " articles"
+                        }
+                    }
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#category-chart"), options);
+            chart.render();
+        }
+    </script>
+}

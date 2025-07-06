@@ -128,6 +128,10 @@ namespace BlogStore.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -148,6 +152,10 @@ namespace BlogStore.DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+
+                    b.Property<string>("CategoryDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -180,8 +188,23 @@ namespace BlogStore.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Isvalid")
+                    b.Property<bool?>("IsToxic")
                         .HasColumnType("bit");
+
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ToxicityAnalyzedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ToxicityCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ToxicityReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("ToxicityScore")
+                        .HasColumnType("float");
 
                     b.Property<string>("UserNameSurname")
                         .IsRequired()

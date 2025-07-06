@@ -1,0 +1,133 @@
+﻿<aside class="left-sidebar">
+    <style>
+        .left-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: #fff;
+            z-index: 1001;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            height: 100%;
+        }
+
+        .page-wrapper {
+            margin-left: 250px;
+        }
+
+        /* Mobilde gizleme için */
+        @@media (max-width: 991.98px) {
+            .left-sidebar
+
+        {
+            position: absolute;
+            z-index: 1050;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .left-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .page-wrapper {
+            margin-left: 0;
+        }
+
+        }
+    </style>
+
+    <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+            <a href="/Admin/Dashboard" class="text-nowrap logo-img">
+            </a>
+            <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                <i class="ti ti-x fs-6"></i>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+            <ul id="sidebarnav">
+                <li class="nav-small-cap">
+                    <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                    <span class="hide-menu">Kontrol Paneli</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Admin/Dashboard" aria-expanded="false">
+                        <i class="ti ti-atom"></i>
+                        <span class="hide-menu">Ana Sayfa</span>
+                    </a>
+                </li>
+                <li><span class="sidebar-divider lg"></span></li>
+                <li class="nav-small-cap">
+                    <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                    <span class="hide-menu">Blog Yönetimi</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Author/MyArticleList" aria-expanded="false">
+                        <i class="ti ti-article"></i>
+                        <span class="hide-menu">Makalelerim</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Author/CreateArticle" aria-expanded="false">
+                        <i class="ti ti-plus"></i>
+                        <span class="hide-menu">Yeni Makale</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Category/CategoryList" aria-expanded="false">
+                        <i class="ti ti-category"></i>
+                        <span class="hide-menu">Kategoriler</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Comment/CommentList" aria-expanded="false">
+                        <i class="ti ti-message"></i>
+                        <span class="hide-menu">Yorumlar</span>
+                    </a>
+                </li>
+                <li><span class="sidebar-divider lg"></span></li>
+                <li class="nav-small-cap">
+                    <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                    <span class="hide-menu">Kullanıcılar</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Author/AuthorList" aria-expanded="false">
+                        <i class="ti ti-users"></i>
+                        <span class="hide-menu">Yazarlar</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Author/GetProfile" aria-expanded="false">
+                        <i class="ti ti-user"></i>
+                        <span class="hide-menu">Profilim</span>
+                    </a>
+                </li>
+                <li><span class="sidebar-divider lg"></span></li>
+                <li class="nav-small-cap">
+                    <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                    <span class="hide-menu">Ön Yüz</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Default/Index" aria-expanded="false">
+                        <i class="ti ti-world"></i>
+                        <span class="hide-menu">Siteye Git</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Login/UserLogout" aria-expanded="false"
+                       onclick="return confirm('Çıkış yapmak istediğinizden emin misiniz?');">
+                        <i class="ti ti-logout"></i>
+                        <span class="hide-menu">Çıkış Yap</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

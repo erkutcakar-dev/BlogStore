@@ -1,0 +1,40 @@
+﻿@model List<BlogStore.EntityLayer.Entities.AppUser>
+
+@{
+    ViewData["Title"] = "AuthorList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section">
+    <div class="container">
+        <div class="row mb-4">
+
+            <div class="col-sm-6 text-sm-end">
+                <h1 class="text-muted">@Model.Count</h1>
+            </div>        
+            <div class="col-sm-6">
+                <br>
+                <h2 class="posts-entry-title">Yazarlar</h2>
+            </div>
+
+        </div>
+        <br /><br />
+        <div class="row">
+            @foreach (var author in Model)
+            {
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <img src="@author.ImageUrl" alt="@author.Name" class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <h5 class="card-title">@author.Name @author.Surname</h5>
+                            <p class="card-text text-muted">@author.Description</p>
+                            <p class="text-primary"><strong>@author.Articles.Count</strong> Makale</p>
+                            <a href="/Author/AuthorDetail/@author.Id" class="btn btn-primary">Yazarın makaleleri</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

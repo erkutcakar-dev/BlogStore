@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BlogStore.EntityLayer.Entities.Comment>
+@{
+    ViewData["Title"] = "ToxicComments";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Toksik Olarak İşaretlenmiş Yorumlar</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Toksik yorum bulunmamaktadır.
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Kullanıcı</th>
+                <th>Yorum</th>
+                <th>Tarih</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>sd
+            @foreach (var comment in Model)
+            {
+                <tr>
+                    <td>@comment.CommentId</td>
+                    <td>
+                        @comment.UserNameSurname <br />
+                        @if (!string.IsNullOrEmpty(comment.AppUser?.ImageUrl))
+                        {
+                            <img src="@comment.AppUser.ImageUrl" alt="Kullanıcı Resmi" style="width:50px; height:50px; border-radius:50%;" />
+                        }
+                    </td>
+                    <td>@comment.CommentDetail</td>
+                    <td>@comment.CommentDate.ToString("dd MMM yyyy HH:mm")</td>
+                    <td>
+                        @if (comment.IsToxic == true)
+                        {
+                            <span class="badge badge-danger">Toksik</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Normal</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="UpdateComment" asp-route-id="@comment.CommentId" class="btn btn-sm btn-primary">Düzenle</a>
+                        <a asp-action="DeleteComment" asp-route-id="@comment.CommentId"
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('Yorumu silmek istediğinize emin misiniz?');">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

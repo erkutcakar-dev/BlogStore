@@ -2,6 +2,7 @@
 using BlogStore.PresentationLayer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace BlogStore.PresentationLayer.Controllers
 {
@@ -18,16 +19,25 @@ namespace BlogStore.PresentationLayer.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> UserLogin(UserLoginViewModel userLoginViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userLoginViewModel);
+            }
+
             var result = await _signinManager.PasswordSignInAsync(userLoginViewModel.Username, userLoginViewModel.Password, true, false);
+
             if (result.Succeeded)
             {
-                return RedirectToAction("CreateArticle", "Author");
+                // Giriş başarılı, kullanıcıyı Author/GetProfile sayfasına yönlendir
+                return RedirectToAction("GetProfile", "Author");
             }
-            return View();
+
+            ModelState.AddModelError("", "Kullanıcı adı veya parola yanlış.");
+            return View(userLoginViewModel);
         }
-        
     }
 }

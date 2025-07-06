@@ -13,33 +13,66 @@ namespace BlogStore.DataAccessLayer.EntityFramework
 {
     public class EfArticleDal : GenericRepository<Article>, IArticleDal
     {
-        private readonly BlogContext _context;
-        public EfArticleDal(BlogContext context) : base(context)
+        private readonly BlogContext _blogContext;
+        public EfArticleDal(BlogContext blogContext) : base(blogContext)
         {
-            _context = context;
+            _blogContext = blogContext;
+        }
+
+        public List<AppUser> GetAllAuthorsWithArticles()
+        {
+            return _blogContext.Users
+                .Where(u => u.Articles.Any())
+                .Include(u => u.Articles)
+                .ToList();
         }
 
         public AppUser GetAppUserByArticleId(int id)
         {
-            string UserId = _context.Articles.Where(x => x.ArticleId == id).Select(y => y.AppUserId).FirstOrDefault();
-            var UserValue = _context.Users.Where(x => x.Id == UserId).FirstOrDefault();
-            return UserValue;
+            string userId = _blogContext.Articles.Where(x => x.ArticleId == id).Select(y => y.AppUserId).FirstOrDefault();
+            var userValue = _blogContext.Users.Where(x => x.Id == userId).FirstOrDefault();
+            return userValue;
+        }
 
+        public Article GetArticleBySlug(string slug)
+        {
+            return _blogContext.Articles
+        .Include(x => x.AppUser)
+        .Include(x => x.Category)
+        .FirstOrDefault(x => x.Slug == slug);
         }
 
         public List<Article> GetArticlesByAppUser(string id)
         {
-            return _context.Articles.Where(x => x.AppUserId ==id).ToList();
+            return _blogContext.Articles
+         .Include(x => x.Category)
+         .Include(x => x.AppUser)
+         .Where(x => x.AppUserId == id)
+         .ToList();
+        }
+
+        public List<Article> GetArticlesByCategory(int categoryId)
+        {
+            return _blogContext.Articles
+                .Include(x => x.AppUser)
+                .Include(x => x.Category)
+                .Where(x => x.CategoryId == categoryId)
+                .ToList();
         }
 
         public List<Article> GetArticlesWithCategories()
         {
-            return _context.Articles.Include(x => x.Category).ToList();
+            return _blogContext.Articles.Include(x => x.Category).ToList();
         }
 
-        public List<Article> GetTop3PopulerArticles()
+        public Article GetArticleWithUser(int id)
         {
-            var values = _context.Articles.OrderByDescending(x => x.ArticleId).Take(3).ToList();
+            return _blogContext.Articles.Include(x => x.AppUser).FirstOrDefault(x => x.ArticleId == id);
+        }
+
+        public List<Article> GetTop3PopularArticles()
+        {
+            var values = _blogContext.Articles.OrderByDescending(x => x.ArticleId).Take(3).ToList();
             return values;
         }
     }

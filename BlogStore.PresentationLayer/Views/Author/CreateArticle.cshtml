@@ -5,23 +5,23 @@
 }
 
 <form method="post">
-    <label>Makale Başlığı</label>
-    <input type="text" asp-for="Title" class="form-control"/>
-	<br />
+    <label for="Title">Makale Başlığı</label>
+    <input type="text" asp-for="Title" class="form-control" />
+    <br />
 
-    <label>Makale Görseli</label>
+    <label for="ImageUrl">Makale Görseli</label>
     <input type="text" asp-for="ImageUrl" class="form-control" />
     <br />
 
-    <label>Makale Kategorisi</label>
-	@Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
+    <label for="CategoryId">Makale Kategorisi</label>
+    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
     <br />
 
-    <label>Makale Açıklaması</label>
-   
+    <label for="Description">Makale Açıklaması</label>
     <textarea asp-for="Description" class="form-control" rows="5"></textarea>
     <br />
-    <button class="btn btn-info">Makaleyi oluştur</button>
 
-</form> 
+    <button type="submit" class="btn btn-info">Makaleyi Oluştur</button>
+</form>
+
 

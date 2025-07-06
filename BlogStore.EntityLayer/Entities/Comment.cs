@@ -12,11 +12,15 @@ namespace BlogStore.EntityLayer.Entities
         public string UserNameSurname { get; set; }
         public DateTime CommentDate { get; set; }
         public string CommentDetail { get; set; }
-        public bool Isvalid { get; set; }
+        public bool IsValid { get; set; }
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
-
         public int ArticleId { get; set; }
         public Article Article { get; set; }
+        public bool? IsToxic { get; set; }
+        public double? ToxicityScore { get; set; }
+        public string? ToxicityCategory { get; set; }
+        public DateTime? ToxicityAnalyzedDate { get; set; }
+        public string? ToxicityReason { get; set; }
     }
 }
