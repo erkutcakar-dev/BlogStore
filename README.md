@@ -116,5 +116,4 @@ Bu projeyi deneyimlediğiniz ve ilgi gösterdiğiniz için teşekkür ederim. He
 
 📎 Projeyi klonlamak için:
 
-```bash
-git clone https://github.com/kullaniciadi/proje-adi.git
+git clone https://github.com/erkutcakar-dev
