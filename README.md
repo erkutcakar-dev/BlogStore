@@ -116,7 +116,7 @@ Bu projeyi deneyimlediğiniz ve ilgi gösterdiğiniz için teşekkür ederim. He
 
 📎 Projeyi klonlamak için:
 
-git clone https://github.com/erkutcakar-dev
+git clone https://github.com/erkutcakar-dev/BlogStore
 
 🖼️ Blog Görselleri
 🧾
